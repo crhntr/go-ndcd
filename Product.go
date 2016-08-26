@@ -5,9 +5,12 @@ import (
 	"strconv"
 	"strings"
 	"time"
+
+	"gopkg.in/mgo.v2/bson"
 )
 
 type Product struct {
+	ID                    bson.ObjectId
 	ProprietaryName       string
 	ProprietaryNameSuffix string
 	NonProprietaryName    string
@@ -27,7 +30,7 @@ type Variation struct {
 	ApplicationNumber     string
 	StartMarketingDate    time.Time
 	EndMarketingDate      time.Time
-	Pharm_Classes         []string
+	PharmClasses          []string
 	DEASchedule           string
 	StrengthNumber        string
 	StrengthUnit          string
@@ -96,7 +99,7 @@ func parseLine(rawStr string) Product {
 	v.StrengthNumber = rawStringArray[14]
 	v.StrengthUnit = rawStringArray[15]
 	if rawStringArray[16] != "" {
-		v.Pharm_Classes = strings.Split(rawStringArray[16], ",")
+		v.PharmClasses = strings.Split(rawStringArray[16], ",")
 	}
 	if rawStringArray[17] != "" {
 		v.DEASchedule = strings.TrimRight(rawStringArray[17], "\r\n")
@@ -108,21 +111,4 @@ func parseLine(rawStr string) Product {
 
 func (p *Product) String() string {
 	return fmt.Sprintf("{ %s | %d variations }", p.ProprietaryName, len(p.Variations))
-}
-
-type productNode struct {
-	p    *Product
-	next *productNode
-}
-type productList struct {
-	first  *productNode
-	length int
-}
-
-func (pl *productList) Len() int {
-	return pl.length
-}
-func (pl *productList) Push(p *Product) {
-	pl.first = &productNode{p: p, next: pl.first}
-	pl.length++
 }

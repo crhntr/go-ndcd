@@ -1,8 +1,13 @@
 package nationaldrugcodedirectory
 
-import "fmt"
+import (
+	"fmt"
+
+	"gopkg.in/mgo.v2/bson"
+)
 
 type Labeler struct {
+	ID       bson.ObjectId
 	Name     string
 	Products []*Product
 }
@@ -15,21 +20,4 @@ func (l Labeler) String() string {
 	str += "\n  ]"
 
 	return fmt.Sprintf("{ %s%s \n}", l.Name, str)
-}
-
-type labelerNode struct {
-	l    *Labeler
-	next *labelerNode
-}
-type labelerList struct {
-	first  *labelerNode
-	length int
-}
-
-func (ll *labelerList) Len() int {
-	return ll.length
-}
-func (ll *labelerList) Push(l *Labeler) {
-	ll.first = &labelerNode{l: l, next: ll.first}
-	ll.length++
 }
