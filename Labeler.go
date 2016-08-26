@@ -1,13 +1,8 @@
 package nationaldrugcodedirectory
 
-import (
-	"fmt"
-
-	"gopkg.in/mgo.v2/bson"
-)
+import "fmt"
 
 type Labeler struct {
-	ID       bson.ObjectId
 	Name     string
 	Products []*Product
 }

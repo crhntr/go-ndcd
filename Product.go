@@ -5,12 +5,9 @@ import (
 	"strconv"
 	"strings"
 	"time"
-
-	"gopkg.in/mgo.v2/bson"
 )
 
 type Product struct {
-	ID                    bson.ObjectId
 	ProprietaryName       string
 	ProprietaryNameSuffix string
 	NonProprietaryName    string
@@ -38,9 +35,6 @@ type Variation struct {
 
 func parseLine(rawStr string) Product {
 	var p Product
-	if rawStr == "" {
-		return p
-	}
 	rawStringArray := strings.Split(rawStr, "	")
 
 	p.ProprietaryName = rawStringArray[3]

@@ -2,51 +2,46 @@ package nationaldrugcodedirectory
 
 import (
 	"archive/zip"
+	"errors"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"strings"
 )
 
-const pNDC_ZIP_URL = "http://www.accessdata.fda.gov/cder/ndc.zip"
-const pNDC_ZIP_PATH = "temp/ndc.zip"
-const pNDC_PRODUCT_TXT_PATH = "temp/product.txt"
+const NDC_ZIP_URL = "http://www.accessdata.fda.gov/cder/ndc.zip"
 
-func GetLatest() string {
-	download()
-	unzip()
-	return pNDC_PRODUCT_TXT_PATH
+func Download(workingDir string) (string, error) {
+	if strings.HasSuffix(workingDir, "/") {
+		return "", errors.New("save to path should not end in '/'")
+	}
+	download(workingDir + "/ndc.zip")
+	unzip(workingDir+"/ndc.zip", workingDir+"/product.txt")
+	return workingDir + "/product.txt", nil
 }
 
-func download() {
+func download(path string) {
 	var zipFile *os.File
 	var getResponse *http.Response
 
-	log.Printf("Downloading ndc.zip from: %s", pNDC_ZIP_URL)
-	getResponse, err := http.Get(pNDC_ZIP_URL)
+	getResponse, err := http.Get(NDC_ZIP_URL)
+	if err != nil {
+
+		log.Panic(err)
+	}
+
+	zipFile, err = os.Create(path)
 	if err != nil {
 		log.Panic(err)
 	}
-	log.Print("Finished Downloading ndc.zip")
+	defer zipFile.Close()
 
-	log.Printf("Done : %s", pNDC_ZIP_URL)
-	zipFile, err = os.Create(pNDC_ZIP_PATH)
-	if err != nil {
-		log.Panic(err)
-	}
-	defer func() {
-		zipFile.Close()
-		if err != nil {
-			log.Panic(err)
-		}
-	}()
-
-	log.Printf("Saving ndc.zip to: %s", pNDC_ZIP_PATH)
 	io.Copy(zipFile, getResponse.Body)
 }
 
-func unzip() {
-	zipFile, err := zip.OpenReader(pNDC_ZIP_PATH)
+func unzip(from, to string) {
+	zipFile, err := zip.OpenReader(from)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -54,8 +49,8 @@ func unzip() {
 
 	for _, f := range zipFile.File {
 		if f.Name == "product.txt" {
-			os.Remove(pNDC_PRODUCT_TXT_PATH)
-			file, err := os.Create(pNDC_PRODUCT_TXT_PATH)
+			os.Remove(to)
+			file, err := os.Create(to)
 			if err != nil {
 				log.Panic(err)
 			}
@@ -64,8 +59,7 @@ func unzip() {
 				log.Panic(err)
 			}
 			io.Copy(file, productFile)
-			os.Remove(pNDC_ZIP_PATH)
+			os.Remove(from)
 		}
 	}
-	log.Printf("Unzipped and saved product.txt to: %s", pNDC_ZIP_PATH)
 }
