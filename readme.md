@@ -6,6 +6,9 @@ writing text parsers.
 
 Feel free to submit pull requests.
 
+##About NDCD###
+[fda.gov/Drugs/InformationOnDrugs](http://www.fda.gov/Drugs/InformationOnDrugs/ucm142438.htm)
+
 ##TODO##
 Write methods
   func (product Product) Valid() bool
