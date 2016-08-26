@@ -11,9 +11,8 @@ Feel free to submit pull requests.
 
 ##TODO##
 Write methods
-  1. func (product Product) Valid() bool  
+  1. func (product Product) Valid() bool
   2. func (labeler Labeler) Valid() bool
-  
   3. Refactor tests to be more modular.
   4. Write tests that check for panics.
   4. Refactor panics to instead return an error value
