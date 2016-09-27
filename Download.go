@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-const NDC_ZIP_URL = "http://www.accessdata.fda.gov/cder/ndc.zip"
+const NDC_ZIP_URL = "http://www.accessdata.fda.gov/cder/ndctext.zip"
 
 func Download(workingDir string) (string, error) {
 	if strings.HasSuffix(workingDir, "/") {
