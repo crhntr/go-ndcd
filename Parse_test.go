@@ -3,7 +3,7 @@ package nationaldrugcodedirectory_test
 import (
 	"testing"
 
-	ndcd "github.com/hunteramericano/nationaldrugcodedirectory"
+	ndcd "github.com/crhntr/nationaldrugcodedirectory"
 )
 
 func TestParse(t *testing.T) {

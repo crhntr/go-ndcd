@@ -3,10 +3,11 @@ package nationaldrugcodedirectory_test
 import (
 	"testing"
 
-	ndcd "github.com/hunteramericano/nationaldrugcodedirectory"
+	ndcd "github.com/crhntr/nationaldrugcodedirectory"
 )
 
 func TestDownload(t *testing.T) {
+	t.SkipNow()
 	if _, err := ndcd.Download("testdata/"); err == nil {
 		t.Error("should not allow path ending in '/'")
 	}

@@ -31,7 +31,7 @@ func Parse(path string, limit int) (map[string]*Product, map[string]*Labeler) {
 			log.Panic(err)
 		}
 		p := parseLine(line)
-		hash := strings.ToLower(p.LabelerName + p.ProprietaryName)
+		hash := strings.ToLower(p.LabelerName + "<<" + p.ProprietaryName)
 		if existingProduct, ok := products[hash]; !ok {
 			products[hash] = &p
 		} else {

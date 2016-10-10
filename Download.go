@@ -16,8 +16,8 @@ func Download(workingDir string) (string, error) {
 	if strings.HasSuffix(workingDir, "/") {
 		return "", errors.New("save to path should not end in '/'")
 	}
-	download(workingDir + "/ndc.zip")
-	unzip(workingDir+"/ndc.zip", workingDir+"/product.txt")
+	download(workingDir + "/ndctext.zip")
+	unzip(workingDir+"/ndctext.zip", workingDir+"/product.txt")
 	return workingDir + "/product.txt", nil
 }
 
