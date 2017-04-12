@@ -1,4 +1,4 @@
-package nationaldrugcodedirectory
+package ndcd
 
 import (
 	"bufio"

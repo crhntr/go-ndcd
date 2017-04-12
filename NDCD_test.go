@@ -1,4 +1,4 @@
-package nationaldrugcodedirectory_test
+package ndcd_test
 
 import (
 	"flag"

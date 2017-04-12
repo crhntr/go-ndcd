@@ -1,9 +1,9 @@
-package nationaldrugcodedirectory_test
+package ndcd_test
 
 import (
 	"testing"
 
-	ndcd "github.com/crhntr/nationaldrugcodedirectory"
+	ndcd "github.com/crhntr/go-ndcd"
 )
 
 func TestDownload(t *testing.T) {
