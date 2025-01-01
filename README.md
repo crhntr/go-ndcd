@@ -1,5 +1,7 @@
 # National Drug Code Directory
 
+> On July 22, 2022, FDA announced the availability of [Proposed Rule on Revising the National Drug Code Format](https://www.fda.gov/drugs/drug-approvals-and-databases/proposed-rule-revising-national-drug-code-format).
+
 This package can be used to download and parse the NDCD database.
 I am not affiliated with the FDA in any way. I initially wrote this to practice
 writing text parsers; however, I have used it in conjunction with the openfda api
