@@ -17,7 +17,7 @@ func TestMain(m *testing.M) {
 		if !os.IsNotExist(err) {
 			panic(err)
 		}
-		err := os.Mkdir("testdata", 0700)
+		err := os.Mkdir("testdata", 0o700)
 		if err != nil {
 			panic(err)
 		}

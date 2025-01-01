@@ -9,7 +9,6 @@ import (
 )
 
 func Parse(path string, limit int) (map[string]*Product, map[string]*Labeler) {
-
 	file, err := os.Open(path)
 	if err != nil {
 		log.Panic(err)
